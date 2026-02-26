@@ -5,13 +5,16 @@ import json
 
 class KafkaConsumer:
     def __init__(self):
-        
-        kafka_uri = os.getenv("KAFKA_URI","localhost:9092")
-        consumer_config = {"bootstrap.servers": kafka_uri ,"group.id": "analytics_service","auto.offset.reset": "earliest"}
 
-        self.consumer = Consumer(consumer_config)    
+        kafka_uri = os.getenv("KAFKA_URI", "localhost:9092")
+        consumer_config = {
+            "bootstrap.servers": kafka_uri,
+            "group.id": "analytics_service",
+            "auto.offset.reset": "earliest",
+        }
+
+        self.consumer = Consumer(consumer_config)
         self.consumer.subscribe(["Clean"])
-
 
     def get_data_from_producer(self):
         msg = self.consumer.poll()
@@ -23,8 +26,3 @@ class KafkaConsumer:
         else:
             value = msg.value().decode("utf-8")
             return json.loads(value)
-
-
-        
-
-

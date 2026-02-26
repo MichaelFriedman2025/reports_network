@@ -1,7 +1,6 @@
 from KafkaConsumer import KafkaConsumer
 from KafkaPublisher import KafkaPublisher
-from TextCleaner import TextCleaner 
-import json 
+from TextCleaner import TextCleaner
 
 consumer = KafkaConsumer()
 producer = KafkaPublisher()
@@ -15,7 +14,7 @@ while True:
         else:
             text = msg["text"]
             removing_stop_words = " ".join(text_cleaner.remove_stop_words(text))
-            data = json.dumps({"image_id":msg["image_id"],"clean_text":removing_stop_words})
+            data = {"image_id": msg["image_id"], "clean_text": removing_stop_words}
             producer.produce_data(data=data)
     except Exception as error:
-        print("❌ERROR:",error)
+        print("❌ERROR:", error)

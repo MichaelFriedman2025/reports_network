@@ -7,7 +7,7 @@ class KafkaConsumer:
     def __init__(self):
         
         kafka_uri = os.getenv("KAFKA_URI","localhost:9092")
-        consumer_config = {"bootstrap.servers": kafka_uri ,"group.id": "_service","auto.offset.reset": "earliest"}
+        consumer_config = {"bootstrap.servers": kafka_uri ,"group.id": "elastic_service","auto.offset.reset": "earliest"}
 
         self.consumer = Consumer(consumer_config)    
         self.consumer.subscribe(["Raw","Clean","Analytics"])
